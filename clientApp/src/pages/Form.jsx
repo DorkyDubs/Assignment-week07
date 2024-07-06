@@ -1,6 +1,7 @@
 //this is form compo
 import { useState } from "react";
 import "./Form.css";
+
 export default function Form() {
   // we need state to save the formData
   // ?formData = {
@@ -10,6 +11,7 @@ export default function Form() {
   const [formValues, setFormValues] = useState({
     username: "",
     post_text: "",
+    category_id: "",
   });
 
   //! dont need useEffecthere , maybe something else
@@ -22,16 +24,17 @@ export default function Form() {
     event.preventDefault();
 
     console.log(formValues);
-    fetch("https://assignment-week7-server.onrender.com/posts", {
-      //! //?http://localhost:7878/posts
-
+    fetch("http://localhost:7878/posts", {
+      //! //?
+      //? https://assignment-week7-server.onrender.com/posts
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formValues),
-      headers: { "content/type": "json/application" },
     });
     setFormValues({
       username: "",
       post_text: "",
+      category_id: "",
     });
   }
 
@@ -57,19 +60,10 @@ export default function Form() {
     <>
       <form className="form-box" onSubmit={handleSubmit}>
         {/* <div> */}
-        <h3>Post:</h3>
-        <label htmlFor="post_text"></label>
-        <input
-          type="text"
-          id="post_text"
-          className="post-text"
-          name="post_text"
-          value={formValues.post_text}
-          onChange={handleInputChange}
-        />
+
         {/* </div>
         <div> */}
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">Username: </label>
         <input
           type="text"
           id="username"
@@ -81,7 +75,37 @@ export default function Form() {
           //maybe later
         />
         {/* </div> */}
-        <button type="submit">Share</button>
+        <label htmlFor="categorySelect">Category: </label>
+        <select
+          required
+          // type="options"
+          id="category"
+          name="category_id"
+          value={formValues.category_id}
+          onChange={handleInputChange}
+        >
+          <option value=""> Please select</option>
+          <option value="1">Sport</option>
+          <option value="2">Travel</option>
+          <option value="3">Weather</option>
+          <option value="4">Food</option>
+          <option value="5">Movies & Television</option>
+          <option value="6">Music</option>
+        </select>
+        <label htmlFor="post_text">
+          <h3>Post:</h3>
+        </label>
+        <textarea
+          type="text"
+          id="post_text"
+          className="post-text"
+          name="post_text"
+          value={formValues.post_text}
+          onChange={handleInputChange}
+        />
+        <div>
+          <button type="submit">Share</button>
+        </div>
       </form>
       <p>Thank you {formValues.username}</p>
     </>

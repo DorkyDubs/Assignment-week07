@@ -1,19 +1,22 @@
 // please add sql queries here that create tables etc
 //! remeber to import db databse
 
-import {db} from
-db.query('');
-
-
-`CREATE TABLE IF NOT EXISTS categories (
+import { db } from "./server.js";
+db.query(`CREATE TABLE IF NOT EXISTS categories (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    category_name VARCHAR(255) UNIQUE
 
-)`;
+);`);
 
-`CREATE TABLE IF NOT EXISTS posts (
+db.query(`CREATE TABLE IF NOT EXISTS posts (
     id SERIAL PRIMARY KEY,
+    username VARCHAR(255),
     post_text TEXT NOT NULL,
     likes INT,
-    catergory_id INT REFERENCES catergory (id)
-)`;
+    category_id INT REFERENCES categories (id)
+);`);
+
+db.query(`INSERT INTO categories (category_name) VALUES ('Sport'),('Travel'),
+        ('Weather'),('Food'),('Movies & Television'),('Music');`);
+
+// this throws erros but works!

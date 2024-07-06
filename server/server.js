@@ -30,12 +30,14 @@ app.listen(PORT, () => {
 });
 
 app.get(
-  "/posts",
+  "/getposts",
   async (
     req,
     res //biscuits name and bio pls
   ) => {
-    const result = await db.query(`SELECT post_text FROM posts`);
+    const result = await db.query(
+      `SELECT * FROM posts JOIN categories ON posts.category_id = categories.id `
+    );
 
     res.json(result.rows);
   }
@@ -43,21 +45,28 @@ app.get(
 
 //? for catergory filtering?
 app.get(
-  `/posts/${category}`,
+  `/category/:category`, //!will this be name, or a number when routing? if useing name join as bellow
   async (
+    //?function like a part of the params that we can call below with the same name in params.:WORDCHOSEN
     req,
     res //posts in cat pls
   ) => {
+    const nameForCategory = req.params.category;
     const result = await db.query(
-      `SELECT post_text FROM posts WHERE category_id = `
+      `SELECT
+        post_text, username, likes
+      FROM posts
+      JOIN categories ON posts.category_id = categories.id
+      WHERE categories.category_name = ${nameForCategory} `
     );
     //! need to join to find catergory id #?
     res.json(result.rows);
+    console.log(res); ///? maybe needs to become a const?
   }
 );
 
 app.post("/posts", async (req, res) => {
-  const { username, post_text, catergory_id } = request.body.form; //!might not need form
+  const { username, post_text, category_id } = req.body; //!might not need form
   try {
     await db.query(
       `INSERT INTO posts (username, post_text, category_id) VALUES ($1,$2,$3)`,
@@ -65,28 +74,56 @@ app.post("/posts", async (req, res) => {
     );
   } catch (error) {
     console.error("No data is getting inserted", error);
-    response.status(500).json({ success: false });
+    res.status(500).json({ success: false });
   }
 });
 
 //!Stretch goals, endpoints for UPDATE and DELETE
 
 app.put("/pathForUpdate/:id", async (req, res) => {
-  const dataIdForUpdate = req.params.id; //--> this request endpoint param
-  const result = await db.query(
-    `UPDATE table SET (column_name =) $1, second_column = $2 WHERE id = ${dataIdForUpdate}  RETURNING *`,
-    [arguement, argument2]
-  );
+  const dataIdForUpdate = req.params.id; //--> this request endpoint param in url
+  try {
+    const result = await db.query(
+      `UPDATE table SET (column_name =) $1, second_column = $2 WHERE id = ${dataIdForUpdate}  RETURNING *`,
+      [arguement, argument2]
+    );
+  } catch (error) {
+    console.error("Update incomplete", error);
+    res.status(500).json({ success: false });
+  }
   //! , include dataIdForUpdat if not using variable in sql query
 
-  res.json(result.rows);
+  res.json(result.rows); //! likely would use here, but if works may be a way to check data
 });
 
 app.delete("/deleteFormData/:id", async (req, res) => {
   const dataIdForDelete = req.params.id;
-  const result = await db.query(
-    `DELETE FROM table_name WHERE id = $1 RETURNING * `,
-    [dataIdForDelete]
-  );
+  try {
+    const result = await db.query(
+      `DELETE FROM table_name WHERE id = ($1) RETURNING * `,
+      [dataIdForDelete]
+    );
+  } catch (error) {
+    console.error("Unable to delete", error);
+    res.status(500).json({ success: false });
+  }
   res.json(result.rows);
 });
+
+//? how would we use this to take username and a password to delete a posting
+// `SELECT
+// post_text, username, likes
+// FROM posts
+// JOIN categories ON posts.category_id = categories.id
+// WHERE categories.category_name = ${nameForCategory}; `
+// );
+
+//? like this?
+// `DELETE
+// *
+// FROM posts
+// JOIN categories ON posts.category_id = categories.id
+// WHERE username = ${username}  AND pw=${password} AND id =${id};` <---//!pull from params
+// );
+
+//? else run a username password check on the page and only run query with id if data matches
