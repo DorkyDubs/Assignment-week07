@@ -18,8 +18,8 @@ export default function AddCat() {
 
     console.log(formValues);
     fetch(
-      "http://localhost:https://assignment-week7-server.onrender.com/addcats" ||
-        "http://localhost:5454/getcategories5454/addcats",
+      "https://assignment-week7-server.onrender.com/addcats" ||
+        "http://localhost:5454/addcats",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

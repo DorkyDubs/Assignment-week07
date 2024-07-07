@@ -9,8 +9,8 @@ export default function Posts() {
   useEffect(() => {
     async function fetchMessages() {
       const response = await fetch(
-        "http://localhost:https://assignment-week7-server.onrender.com/getposts" ||
-          "http://localhost:5454/getcategories5454/getposts"
+        "https://assignment-week7-server.onrender.com/getposts" ||
+          "http://localhost:5454/getposts"
       );
       const ourData = await response.json();
       setData(ourData);

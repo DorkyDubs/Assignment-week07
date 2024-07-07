@@ -14,7 +14,7 @@ export default function TopicPosts() {
     // console.log(urlNo);
     async function fetchPosts() {
       const response = await fetch(
-        `http://localhost:https://assignment-week7-server.onrender.com${location.pathname}` ||
+        `https://assignment-week7-server.onrender.com${location.pathname}` ||
           `http://localhost:5454/getcategories5454${location.pathname}`
       );
       const ourData = await response.json();

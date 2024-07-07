@@ -25,8 +25,8 @@ export default function Form() {
 
     console.log(formValues);
     fetch(
-      "http://localhost:https://assignment-week7-server.onrender.com/posts" ||
-        "http://localhost:5454/getcategories5454/posts",
+      "https://assignment-week7-server.onrender.com/posts" ||
+        "http://localhost:5454/posts",
       {
         //! //?
         //? https://assignment-week7-server.onrender.com/posts
@@ -58,8 +58,8 @@ export default function Form() {
   useEffect(() => {
     async function fetchMessages() {
       const response = await fetch(
-        "http://localhost:https://assignment-week7-server.onrender.com/getcategories" ||
-          "http://localhost:5454/getcategories5454/getcategories"
+        "https://assignment-week7-server.onrender.com/getcategories" ||
+          "http://localhost:5454/getcategories"
       );
       const fetchedData = await response.json();
       setData(fetchedData);
