@@ -9,6 +9,7 @@ import TopicPosts from "./pages/TopicPosts";
 import NoSuchTopicPage from "./pages/NoSuchTopicPage";
 import Posts from "./pages/Posts";
 import AddCat from "./pages/AddCat";
+import AllTopics from "./pages/AllTopics";
 HomePage;
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         {/* //!might need to snakeCase ^ this here and in database and routes */}
         <Route path="/6" element={<TopicPosts />} />
         <Route path="/*" element={<NoSuchTopicPage />} />
+        <Route path="/alltopics" element={<AllTopics />} />
         <Route path="/getposts" element={<Posts />} />
         <Route path="/form" element={<Form />} />
         <Route path="/" element={<HomePage />} />

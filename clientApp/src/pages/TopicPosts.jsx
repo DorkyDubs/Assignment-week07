@@ -7,6 +7,7 @@ export default function TopicPosts() {
 
   let location = useLocation();
   const [data, setData] = useState([]);
+
   // console.log(location.pathname);
   useEffect(() => {
     // const thisThing = ;
@@ -15,7 +16,7 @@ export default function TopicPosts() {
     async function fetchPosts() {
       const response = await fetch(
         `https://assignment-week7-server.onrender.com${location.pathname}` ||
-          `http://localhost:5454/getcategories5454${location.pathname}`
+          `http://localhost:4545${location.pathname}`
       );
       const ourData = await response.json();
       setData(ourData);
@@ -23,10 +24,10 @@ export default function TopicPosts() {
 
     fetchPosts();
   }, [location]);
-
+  console.log(data);
   return (
     <>
-      <h1> yo</h1>
+      <h1></h1>
       {data.map((entry) => (
         <div key={entry.post_id} className="post-box">
           <div>

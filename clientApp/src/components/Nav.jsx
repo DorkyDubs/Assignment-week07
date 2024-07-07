@@ -11,6 +11,16 @@ import Form from "../pages/Form";
 export default function Nav() {
   return (
     <>
+      <div>
+        <Link to="/">Home</Link> {"-"}
+        <Link to="/form">Leave Post</Link>
+        {"-"}
+        <Link to="/addcat">New Topic</Link>
+        {"-"}
+        <Link to="/getposts"> View All</Link>
+        {"-"}
+        <Link to="/alltopics"> All Topics</Link>
+      </div>
       <Link to="/1">Sport</Link>
       {"  - "}
       {/* //!investigate ability to get these from database and map onto nav from data-points */}
@@ -21,15 +31,6 @@ export default function Nav() {
       <Link to="/5">Movies & TV</Link>
       {"  - "}
       <Link to="/6">Music</Link>
-      <div>
-        <Link to="/getposts"> View All</Link>
-        {"-"}
-        <Link to="/form">Leave Post</Link>
-        {"-"}
-        <Link to="/addcat">New Topic</Link>
-        {"-"}
-        <Link to="/">Home</Link>
-      </div>
     </>
   );
 }

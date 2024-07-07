@@ -24,7 +24,7 @@ export const db = new pg.Pool({
   connectionString: DbString,
 });
 
-const PORT = 5454;
+const PORT = 4545;
 app.listen(PORT, () => {
   console.log(`Your server is running on port: ${PORT}`);
 });
@@ -49,7 +49,9 @@ app.get(
     req,
     res //biscuits name and bio pls
   ) => {
-    const result = await db.query(`SELECT * FROM categories`);
+    const result = await db.query(
+      `SELECT * FROM categories JOIN posts ON posts.category_id = categories.id`
+    );
 
     res.json(result.rows);
   }
@@ -63,10 +65,10 @@ app.get(
     req,
     res //posts in cat pls
   ) => {
-    const nameForCategory = req.params.id;
+    const numberForCategory = req.params.id;
     const result = await db.query(
-      `SELECT * FROM posts WHERE posts.category_id = $1`,
-      [nameForCategory]
+      `SELECT * FROM posts WHERE posts.category_id = $1 JOIN categories ON posts.category_id = categories.id `,
+      [numberForCategory]
     );
     //! need to join to find catergory id #?
     res.json(result.rows);

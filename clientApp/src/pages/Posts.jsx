@@ -10,7 +10,7 @@ export default function Posts() {
     async function fetchMessages() {
       const response = await fetch(
         "https://assignment-week7-server.onrender.com/getposts" ||
-          "http://localhost:5454/getposts"
+          "http://localhost:4545/getposts"
       );
       const ourData = await response.json();
       setData(ourData);
@@ -19,7 +19,7 @@ export default function Posts() {
 
     fetchMessages();
   }, []);
-
+  console.log(data);
   return (
     <>
       <h1> yo</h1>

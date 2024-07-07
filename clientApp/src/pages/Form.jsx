@@ -26,7 +26,7 @@ export default function Form() {
     console.log(formValues);
     fetch(
       "https://assignment-week7-server.onrender.com/posts" ||
-        "http://localhost:5454/posts",
+        "http://localhost:4545/posts",
       {
         //! //?
         //? https://assignment-week7-server.onrender.com/posts
@@ -59,7 +59,7 @@ export default function Form() {
     async function fetchMessages() {
       const response = await fetch(
         "https://assignment-week7-server.onrender.com/getcategories" ||
-          "http://localhost:5454/getcategories"
+          "http://localhost:4545/getcategories"
       );
       const fetchedData = await response.json();
       setData(fetchedData);

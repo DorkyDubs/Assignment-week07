@@ -2,6 +2,8 @@
 
 🎯 Were there any requirements or goals that you were not quite able to achieve?
 
+Thought about adding a number of posts counts to each category, using it to map the top five into nav bar but never got around to implementing it.
+
 🎯 If so, could you please tell us what was it that you found difficult about these tasks?
 
 (Optional)
@@ -10,6 +12,7 @@
 What went really well and what could have gone better?
 
 Detailing useful external sources that helped you complete the assignment (e.g Youtube tutorials).
+
 Describing errors or bugs you encountered while completing your assignment.
 
 I'd hoped to implement dynamic routing and endpoints with descriptive terms however had issues when using them with SQL queries and joining and so replaced them with a direct reference to the id numbers, which should have been something that could have been handled.
