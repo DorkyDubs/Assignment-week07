@@ -43,17 +43,28 @@ export default function TopicPosts() {
     fetchMessages();
   }, [location]);
 
-  return (
-    <>
-      <h1>{topicName}</h1>
-      {postData.map((entry) => (
-        <div key={entry.post_id} className="post-box">
-          <div>
-            <h3>User: {entry.username} </h3>
+  if (postData.length > 0) {
+    return (
+      <>
+        <h1>{topicName}</h1>
+        {postData.map((entry) => (
+          <div key={entry.post_id} className="post-box">
+            <div>
+              <h3 className="user">User: {entry.username} </h3>
+            </div>
+            <h4>{entry.post_text}</h4>
           </div>
-          <h4>{entry.post_text}</h4>
+        ))}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <h2>Nothing to chat about?</h2>
+        <div>
+          <h2>😞</h2>
         </div>
-      ))}
-    </>
-  );
+      </>
+    );
+  }
 }

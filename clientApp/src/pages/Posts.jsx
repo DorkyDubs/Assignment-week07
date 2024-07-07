@@ -22,15 +22,15 @@ export default function Posts() {
 
   return (
     <>
-      <h1> yo</h1>
       {data.map((entry) => (
         <div key={entry.post_id} className="post-box">
           <div>
-            <h3>
-              {entry.username} Subject: {entry.category_name}
-            </h3>
+            <h4>{entry.category_name}</h4>
+            <div>
+              <h4>User: {entry.username} </h4>
+            </div>
           </div>
-          <h4>{entry.post_text}</h4>
+          <h3 classname="all-post">{entry.post_text}</h3>
         </div>
       ))}
     </>

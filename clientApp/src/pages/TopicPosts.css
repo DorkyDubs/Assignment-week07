@@ -1,0 +1,16 @@
+.post-box {
+  border: 1px groove cyan;
+}
+
+h4 {
+  border: 1px ridge white;
+}
+
+h3.user {
+  text-decoration: underline;
+}
+
+h1 {
+  text-decoration: underline overline;
+  text-underline-offset: 1rem;
+}
