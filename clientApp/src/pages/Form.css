@@ -2,3 +2,8 @@
   width: 20rem;
   height: 20rem;
 }
+
+.option-box::first-letter {
+  text-transform: capitalize;
+  /* as using fetch from category table names aren't capitalised in drop down, this fixes that */
+}

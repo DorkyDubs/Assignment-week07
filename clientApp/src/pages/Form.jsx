@@ -1,7 +1,7 @@
 //this is form compo
 import { useState } from "react";
 import "./Form.css";
-
+import { useEffect } from "react";
 export default function Form() {
   // we need state to save the formData
   // ?formData = {
@@ -24,13 +24,17 @@ export default function Form() {
     event.preventDefault();
 
     console.log(formValues);
-    fetch("http://localhost:7878/posts", {
-      //! //?
-      //? https://assignment-week7-server.onrender.com/posts
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formValues),
-    });
+    fetch(
+      "http://localhost:https://assignment-week7-server.onrender.com/posts" ||
+        "http://localhost:5454/getcategories5454/posts",
+      {
+        //! //?
+        //? https://assignment-week7-server.onrender.com/posts
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValues),
+      }
+    );
     setFormValues({
       username: "",
       post_text: "",
@@ -49,6 +53,23 @@ export default function Form() {
     });
   }
 
+  const [data, setData] = useState([]);
+  //?Reusing this method but useEffct might not be needed
+  useEffect(() => {
+    async function fetchMessages() {
+      const response = await fetch(
+        "http://localhost:https://assignment-week7-server.onrender.com/getcategories" ||
+          "http://localhost:5454/getcategories5454/getcategories"
+      );
+      const fetchedData = await response.json();
+      setData(fetchedData);
+    }
+
+    // "https://assignment-week7-server.onrender.com/getcategories" ||
+    //       "http://localhost:5454/getcategories"  //? template for struct
+
+    fetchMessages();
+  }, []);
   //we need to add the values from the initial state
   //nned to sset the properties for the new bject.
   // they key is the taregrt name, value is the target value
@@ -85,12 +106,11 @@ export default function Form() {
           onChange={handleInputChange}
         >
           <option value=""> Please select</option>
-          <option value="1">Sport</option>
-          <option value="2">Travel</option>
-          <option value="3">Weather</option>
-          <option value="4">Food</option>
-          <option value="5">Movies & Television</option>
-          <option value="6">Music</option>
+          {data.map((cat) => (
+            <option value={cat.id} key={cat.id} className="option-box">
+              {cat.category_name}
+            </option>
+          ))}
         </select>
         <label htmlFor="post_text">
           <h3>Post:</h3>

@@ -24,7 +24,7 @@ export const db = new pg.Pool({
   connectionString: DbString,
 });
 
-const PORT = 7878;
+const PORT = 5454;
 app.listen(PORT, () => {
   console.log(`Your server is running on port: ${PORT}`);
 });
@@ -43,21 +43,30 @@ app.get(
   }
 );
 
+app.get(
+  "/getcategories",
+  async (
+    req,
+    res //biscuits name and bio pls
+  ) => {
+    const result = await db.query(`SELECT * FROM categories`);
+
+    res.json(result.rows);
+  }
+);
+
 //? for catergory filtering?
 app.get(
-  `/category/:category`, //!will this be name, or a number when routing? if useing name join as bellow
+  `/:id`, //!will this be name, or a number when routing? if useing name join as bellow
   async (
     //?function like a part of the params that we can call below with the same name in params.:WORDCHOSEN
     req,
     res //posts in cat pls
   ) => {
-    const nameForCategory = req.params.category;
+    const nameForCategory = req.params.id;
     const result = await db.query(
-      `SELECT
-        post_text, username, likes
-      FROM posts
-      JOIN categories ON posts.category_id = categories.id
-      WHERE categories.category_name = ${nameForCategory} `
+      `SELECT * FROM posts WHERE posts.category_id = $1`,
+      [nameForCategory]
     );
     //! need to join to find catergory id #?
     res.json(result.rows);
@@ -74,6 +83,18 @@ app.post("/posts", async (req, res) => {
     );
   } catch (error) {
     console.error("No data is getting inserted", error);
+    res.status(500).json({ success: false });
+  }
+});
+
+app.post("/addcats", async (req, res) => {
+  const { catName } = req.body; //!might not need form
+  try {
+    await db.query(`INSERT INTO categories (category_name) VALUES ($1)`, [
+      catName,
+    ]);
+  } catch (error) {
+    console.error("No data is getting inserted, possible duplicate", error);
     res.status(500).json({ success: false });
   }
 });
