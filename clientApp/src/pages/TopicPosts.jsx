@@ -22,24 +22,26 @@ export default function TopicPosts() {
 
     fetchPosts();
   }, [location]);
-
+  const [topicName, setTopicName] = useState("");
   const [data, setData] = useState([]);
   //?Reusing this method but useEffct might not be needed
   useEffect(() => {
     async function fetchMessages() {
-      const response = await fetch("http://localhost:4545/getcategories");
+      const response = await fetch(
+        "https://assignment-week7-server.onrender.com/getcategories" ||
+          "http://localhost:4545/getcategories"
+      );
       const fetchedData = await response.json();
-      setData(fetchedData);
+
+      const pathName = location.pathname;
+      const pathId = pathName.substring(1, 2);
+      const pathIndex = parseInt(pathId) - 1;
+      const topicOBJ = fetchedData[pathIndex];
+      setTopicName(topicOBJ.category_name);
     }
 
     fetchMessages();
   }, [location]);
-
-  const pathName = location.pathname;
-  const pathId = pathName.substring(1, 2);
-  const pathIndex = parseInt(pathId) - 1;
-  const topicOBJ = data[pathIndex];
-  const topicName = topicOBJ.category_name;
 
   return (
     <>

@@ -24,7 +24,7 @@ function App() {
         <Route path="/5" element={<TopicPosts />} />
         {/* //!might need to snakeCase ^ this here and in database and routes */}
         <Route path="/6" element={<TopicPosts />} />
-        <Route path="/*" element={<NoSuchTopicPage />} />
+        <Route path="/*" element={<AllTopics />} />
         <Route path="/alltopics" element={<AllTopics />} />
         <Route path="/getposts" element={<Posts />} />
         <Route path="/form" element={<Form />} />

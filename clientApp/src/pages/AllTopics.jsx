@@ -1,7 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import TopicPosts from "./TopicPosts";
 import { useEffect, useState } from "react";
-
+import "./AllTopics.css";
 export default function AllTopics() {
   const [data, setData] = useState([]);
   //?Reusing this method but useEffct might not be needed
