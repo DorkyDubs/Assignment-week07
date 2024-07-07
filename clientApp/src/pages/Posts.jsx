@@ -19,7 +19,7 @@ export default function Posts() {
 
     fetchMessages();
   }, []);
-  console.log(data);
+
   return (
     <>
       <h1> yo</h1>
@@ -36,28 +36,3 @@ export default function Posts() {
     </>
   );
 }
-
-//   useEffect(
-//   // we need a function to get the posts.
-
-//   fetch("http://localhost:7878/posts", {
-//     //! //?
-//     //? https://assignment-week7-server.onrender.com/posts
-//     method: "GET",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(result),
-//   });
-//   const userPost = await response.json();
-// );
-//   //function is async and uses fetch
-//   // once data fetched set state variable to be the posts data
-
-//   //? can have function in useEffect or have speerate fucntion outside to get posts and call function in useEffect hook
-
-//   return (
-//     <>
-//       {/* in return want a list of posts */}
-//       Posts
-//     </>
-//   );
-// }
